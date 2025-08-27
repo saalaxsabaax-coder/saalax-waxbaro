@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Registration Form</h2>
+    <form id="myForm" onsubmit="return validateForm()">
+        Full Name: <br>
+        <input type="text" id="fullname"><br>
+        <span id="nameError" class="error"></span><br>
+
+        Phone: <br>
+        <input type="text" id="phone"><br>
+        <span id="phoneError" class="error"></span><br>
+
+        Email: <br>
+        <input type="text" id="email"><br>
+        <span id="emailError" class="error"></span><br>
+
+        Password: <br>
+        <input type="password" id="password"><br>
+        <span id="passError" class="error"></span><br>
+
+        Re-type Password: <br>
+        <input type="password" id="repassword"><br>
+        <span id="repassError" class="error"></span><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            let valid = true;
+
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("phoneError").innerHTML = "";
+            document.getElementById("emailError").innerHTML = "";
+            document.getElementById("passError").innerHTML = "";
+            document.getElementById("repassError").innerHTML = "";
+
+            let fullname = document.getElementById("fullname").value.trim();
+            if (fullname === "") {
+                document.getElementById("nameError").innerHTML = "Full name is required";
+                valid = false;
+            }
+
+            let phone = document.getElementById("phone").value;
+            if (!/^[0-9]+$/.test(phone)) {
+                document.getElementById("phoneError").innerHTML = "Phone must be numeric only";
+                valid = false;
+            }
+
+            let email = document.getElementById("email").value;
+            if (!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email)) {
+                document.getElementById("emailError").innerHTML = "Invalid email format";
+                valid = false;
+            }
+
+            let password = document.getElementById("password").value;
+            if (password.length < 8) {
+                document.getElementById("passError").innerHTML = "Password must be at least 8 characters";
+                valid = false;
+            } else {
+                
+                let strength = "Weak";
+                if (/[A-Z]/.test(password) && /[0-9]/.test(password) && /[!@#\$%\^&\*]/.test(password)) {
+                    strength = "Strong";
+                } else if (/[A-Z]/.test(password) || /[0-9]/.test(password)) {
+                    strength = "Medium";
+                }
+                document.getElementById("passError").innerHTML = "Password strength: " + strength;
+                document.getElementById("passError").className = 
+                    strength === "Strong" ? "success" : "error";
+            }
+
+           
+            let repassword = document.getElementById("repassword").value;
+            if (password !== repassword) {
+                document.getElementById("repassError").innerHTML = "Passwords do not match";
+                valid = false;
+            }
+
+            return valid;
+        }
+    </script>
+
+</body>
+</html>
