@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Saacad Wareeg ah</title>
+  <style>
+    * { box-sizing: border-box; }
+    body{
+      min-height:100vh; margin:0; display:grid; place-items:center;
+      background:#1e293b; font-family:sans-serif;
+    }
+    .clock{
+      position:relative; width:320px; height:320px; border-radius:50%;
+      background:#0f172a;
+      border:10px solid #f8fafc;
+      box-shadow: 0 0 25px rgba(0,0,0,.8) inset;
+    }
+    .tick{
+      position:absolute; left:50%; top:50%;
+      width:4px; height:20px; background:#f8fafc;
+      transform-origin:center -140px;
+      border-radius:2px;
+      opacity:0.9;
+    }
+    .tick.small{ height:10px; opacity:0.5; }
+
+    .hand{
+      position:absolute; left:50%; top:50%;
+      transform-origin:50% 0%;
+      border-radius:6px;
+      z-index:5; 
+    }
+    .hand.hour   { width:8px;  height:90px;  background:#38bdf8; }
+    .hand.minute { width:6px;  height:120px; background:#facc15; }
+    .hand.second { width:3px;  height:140px; background:#ef4444; }
+
+    .hub {
+      position:absolute; left:50%; top:50%;
+      width:18px; height:18px; transform:translate(-50%, -50%);
+      background:#f8fafc; border-radius:50%;
+      z-index:10;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock" id="clock"></div>
+
+  <script>
+    const clock = document.getElementById('clock');
+    for (let i = 0; i < 60; i++) {
+      const t = document.createElement('div');
+      t.className = 'tick' + (i % 5 ? ' small' : '');
+      const deg = i * 6;
+      t.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
+      clock.appendChild(t);
+    }
+
+   
+    const hour   = document.createElement('div'); hour.className   = 'hand hour';
+    const minute = document.createElement('div'); minute.className = 'hand minute';
+    const second = document.createElement('div'); second.className = 'hand second';
+    const hub    = document.createElement('div'); hub.className    = 'hub';
+
+    clock.append(hour, minute, second, hub);
+
+    function animate() {
+      const now = new Date();
+      const ms = now.getMilliseconds();
+      const s  = now.getSeconds() + ms / 1000;
+      const m  = now.getMinutes() + s / 60;
+      const h  = (now.getHours() % 12) + m / 60;
+
+      hour.style.transform   = `translate(-50%, 0) rotate(${h*30}deg)`;
+      minute.style.transform = `translate(-50%, 0) rotate(${m*6}deg)`;
+      second.style.transform = `translate(-50%, 0) rotate(${s*6}deg)`;
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>

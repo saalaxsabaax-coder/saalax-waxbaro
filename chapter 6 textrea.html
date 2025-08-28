@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8">
+  <title>Textarea Download</title>
+</head>
+<body>
+
+  <h2>Qoraalkaaga geli hoosta</h2>
+  <textarea id="myTextarea" rows="10" cols="50" placeholder="halkaan qoraal gali macalin..."></textarea>
+  <br><br>
+  <button onclick="downloadText()">Download</button>
+
+  <script>
+    function downloadText() {
+      var text = document.getElementById("myTextarea").value;
+
+      var blob = new Blob([text], { type: "text/plain" });
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "qoraal.txt"; 
+
+      link.click();
+    }
+  </script>
+
+</body>
+</html>

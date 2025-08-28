@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>waxbaro</title>
+</head>
+<body>
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Methods in Action</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #69bfd9, #68a9c1);
+            color: rgb(8, 152, 116);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 370px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        button {
+            background: #129ec1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #1a5edb;
+        }
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+            color: black;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎯 Array Methods in Action</h2>
+        <button onclick="pushItem()">1️⃣ Push()</button>
+        <button onclick="filterItems()">2️⃣ Filter()</button>
+        <button onclick="mapItems()">3️⃣ Map()</button>
+        <button onclick="fromExample()">4️⃣ Array.from()</button>
+        <button onclick="forEachExample()">5️⃣ forEach()</button>
+        <pre id="output"></pre>
+    </div>
+
+    <script>
+        let scores = [10, 20, 30];
+        let output = document.getElementById("output");
+
+        function showArray(title, arr) {
+            output.textContent = `${title}: ${arr.join(', ')}`;
+        }
+
+        function pushItem() {
+            scores.push(40);
+            showArray("After push", scores);
+        }
+
+        function filterItems() {
+            let filtered = scores.filter(score => score > 20);
+            showArray("After filter (>20)", filtered);
+        }
+
+        function mapItems() {
+            let mapped = scores.map(score => score * 2);
+            showArray("After map(score * 2)", mapped);
+        }
+
+        function fromExample() {
+            let str = "12345";
+            let arrFromStr = Array.from(str, num => Number(num) * 2);
+            showArray("Array.from('12345', x*2)", arrFromStr);
+        }
+
+        function forEachExample() {
+            let doubled = [];
+            scores.forEach(score => doubled.push(score * 2));
+            showArray("forEach doubled", doubled);
+        }
+
+        // Show original array on load
+        showArray("Original", scores);
+    </script>
+</body>
+</html>
+
+</body>
+</html>

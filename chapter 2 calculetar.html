@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>calculator</title>
+  <style>
+    .text {
+      font-size: 25px;
+      width: 330px;
+      height: 60px;
+      border-radius: 10px;
+      border: 0px;
+      box-shadow: 0 3px 4px 2px rgb(5, 5, 5);
+    }
+    .btn {
+      font-size: 20px;
+      padding: 15px;
+      width: 80px;
+      margin: 2px;
+      border-radius: 15px;
+      background-color: white;
+      border: 0px;
+      box-shadow: 0 2px 2px 2px black;
+      margin-top: 10px;
+    }
+    .caler {
+      font-size: 25px;
+      padding: 15px;
+      width: 340px;
+      margin: 2px;
+      background-color: white;
+      margin-top: 10px;
+      border: 0;
+      box-shadow: 0 2px 2px 2px black;
+    }
+    form {
+      box-shadow: 0 2px 3px 3px black;
+      width: 348px;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    h2 {
+      text-align: center;
+      font-size: 30px;
+    }
+    body {
+      background-color: blue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <form name="form1">
+    <h2>calculator javascript</h2>
+    <input type="text" name="answer" class="text" /><br />
+    <input class="btn" type="button" value="1" onclick="form1.answer.value +='1'" />
+    <input class="btn" type="button" value="2" onclick="form1.answer.value +='2'" />
+    <input class="btn" type="button" value="3" onclick="form1.answer.value +='3'" />
+    <input class="btn" type="button" value="+" onclick="form1.answer.value +='+'" />
+    <br />
+    <input class="btn" type="button" value="4" onclick="form1.answer.value +='4'" />
+    <input class="btn" type="button" value="5" onclick="form1.answer.value +='5'" />
+    <input class="btn" type="button" value="6" onclick="form1.answer.value +='6'" />
+    <input class="btn" type="button" value="-" onclick="form1.answer.value +='-'" />
+    <br />
+    <input class="btn" type="button" value="7" onclick="form1.answer.value +='7'" />
+    <input class="btn" type="button" value="8" onclick="form1.answer.value +='8'" />
+    <input class="btn" type="button" value="9" onclick="form1.answer.value +='9'" />
+    <input class="btn" type="button" value="*" onclick="form1.answer.value +='*'" />
+    <br />
+    <input class="btn" type="button" value="/" onclick="form1.answer.value +='/'" />
+    <input class="btn" type="button" value="0" onclick="form1.answer.value +='0'" />
+    <input class="btn" type="button" value="." onclick="form1.answer.value +='.'" />
+    <input class="btn" type="button" value="=" onclick="form1.answer.value =eval(form1.answer.value)" />
+    <br />
+    <input class="btn" type="button" value="&#9003;" onclick="form1.answer.value = form1.answer.value.slice(0, -1)" />
+    <input class="btn" type="button" value="x&sup2;" onclick="if(form1.answer.value) form1.answer.value = Math.pow(eval(form1.answer.value), 2)" />
+    <input class="btn" type="button" value="√" onclick="if(form1.answer.value) form1.answer.value = Math.sqrt(eval(form1.answer.value))" />
+    <input class="btn" type="button" value="1/x" onclick="if(form1.answer.value && eval(form1.answer.value)!=0) form1.answer.value = 1 / eval(form1.answer.value)" />
+    <br />
+    <input class="caler" type="button" value="clear All" onclick="form1.answer.value=''" id="cler" />
+  </form>
+</body>
+</html>

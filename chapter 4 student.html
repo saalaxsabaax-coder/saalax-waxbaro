@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>waxbaro</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Grade Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e478c0;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: 
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+    }
+
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #a5d6a7;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      color: black;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>Student Grade Calculator</h3>
+    
+    <label>Student Name</label>
+    <input type="text" id="name" placeholder="Enter name">
+
+    <label>Computer</label>
+    <input type="number" id="computer" placeholder="Enter marks">
+
+    <label>Database</label>
+    <input type="number" id="database" placeholder="Enter marks">
+
+    <label>Network</label>
+    <input type="number" id="network" placeholder="Enter marks">
+
+    <label>Multimedia</label>
+    <input type="number" id="multimedia" placeholder="Enter marks">
+
+    <button onclick="calculateGrade()">Calculate Result</button>
+
+    <div class="result" id="output"></div>
+  </div>
+
+  <script>
+    function calculateGrade() {
+      const name = document.getElementById("name").value;
+      const computer = Number(document.getElementById("computer").value);
+      const database = Number(document.getElementById("database").value);
+      const network = Number(document.getElementById("network").value);
+      const multimedia = Number(document.getElementById("multimedia").value);
+
+      if (isNaN(computer) || isNaN(database) || isNaN(network) || isNaN(multimedia)) {
+        document.getElementById("output").innerText = "Fadlan geli dhammaan dhibcaha.";
+        return;
+      }
+
+      const total = computer + database + network + multimedia;
+      const average = total / 4;
+
+      let grade = '';
+      if (average >= 90) {
+        grade = 'A';
+      } else if (average >= 80) {
+        grade = 'B';
+      } else if (average >= 70) {
+        grade = 'C';
+      } else if (average >= 60) {
+        grade = 'D';
+      } else {
+        grade = 'F';
+      }
+
+      document.getElementById("output").innerHTML = `
+        Student Name: ${name} <br>
+        Total Marks: ${total} <br>
+        Average: ${average.toFixed(2)} <br>
+        Grade: ${grade}
+      `;
+    }
+  </script>
+</body>
+</html>
+
+</body>
+</html>

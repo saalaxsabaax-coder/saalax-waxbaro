@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-do list Mumti ❤️</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #bd92af, #34a853);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+    h2 span {
+      color: red;
+    }
+    input {
+      width: 70%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+    }
+    button {
+      background: #0f9d58;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      margin-left: 5px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0d8a50;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 15px;
+      text-align: left;
+    }
+    ul li {
+      background: #f1f1f1;
+      padding: 8px;
+      margin-bottom: 5px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    ul li.completed {
+      text-decoration: line-through;
+      color: gray;
+      background: #d4edda;
+    }
+    .actions {
+      display: flex;
+      gap: 5px;
+    }
+    .done-btn {
+      background: #007bff;
+      padding: 3px 8px;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .delete-btn {
+      background: red;
+      padding: 3px 8px;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>To-do list Mumti </h2>
+    <input type="text" id="taskInput" placeholder="Add your text">
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function renderTasks() {
+      const list = document.getElementById("taskList");
+      list.innerHTML = "";
+      tasks.forEach((task, index) => {
+        list.innerHTML += `
+          <li class="${task.completed ? 'completed' : ''}">
+            ${task.text}
+            <div class="actions">
+              <span class="done-btn" onclick="toggleComplete(${index})">✔</span>
+              <span class="delete-btn" onclick="deleteTask(${index})">✖</span>
+            </div>
+          </li>
+        `;
+      });
+    }
+
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      if (input.value.trim() !== "") {
+        tasks.push({ text: input.value.trim(), completed: false });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+        input.value = "";
+        renderTasks();
+      }
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      renderTasks();
+    }
+
+    function toggleComplete(index) {
+      tasks[index].completed = !tasks[index].completed;
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      renderTasks();
+    }
+
+    renderTasks();
+  </script>
+</body>
+</html>
