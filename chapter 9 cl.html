@@ -1,83 +1,115 @@
 <!DOCTYPE html>
-<html lang="so">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Saacad Wareeg ah</title>
   <style>
-    * { box-sizing: border-box; }
-    body{
-      min-height:100vh; margin:0; display:grid; place-items:center;
-      background:#1e293b; font-family:sans-serif;
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #1e293b; /* midab madow qurux badan */
     }
-    .clock{
-      position:relative; width:320px; height:320px; border-radius:50%;
-      background:#0f172a;
-      border:10px solid #f8fafc;
-      box-shadow: 0 0 25px rgba(0,0,0,.8) inset;
-    }
-    .tick{
-      position:absolute; left:50%; top:50%;
-      width:4px; height:20px; background:#f8fafc;
-      transform-origin:center -140px;
-      border-radius:2px;
-      opacity:0.9;
-    }
-    .tick.small{ height:10px; opacity:0.5; }
 
-    .hand{
-      position:absolute; left:50%; top:50%;
-      transform-origin:50% 0%;
-      border-radius:6px;
-      z-index:5; 
+    .clock {
+      width: 300px;
+      height: 300px;
+      border: 12px solid #f8fafc;
+      border-radius: 50%;
+      background: radial-gradient(circle, #0f172a, #1e293b);
+      position: relative;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
     }
-    .hand.hour   { width:8px;  height:90px;  background:#38bdf8; }
-    .hand.minute { width:6px;  height:120px; background:#facc15; }
-    .hand.second { width:3px;  height:140px; background:#ef4444; }
 
-    .hub {
-      position:absolute; left:50%; top:50%;
-      width:18px; height:18px; transform:translate(-50%, -50%);
-      background:#f8fafc; border-radius:50%;
-      z-index:10;
+    .clock::after {
+      content: '';
+      width: 15px;
+      height: 15px;
+      background: #f8fafc;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    .hand {
+      width: 50%;
+      height: 2px;
+      background: #f8fafc;
+      position: absolute;
+      top: 50%;
+      transform-origin: 100%;
+      transform: rotate(90deg);
+      transition: transform 0.05s ease-in-out;
+    }
+
+    .hour {
+      height: 6px;
+      background: #e11d48;
+      z-index: 3;
+    }
+
+    .minute {
+      height: 4px;
+      background: #22c55e;
+      z-index: 2;
+    }
+
+    .second {
+      height: 2px;
+      background: #38bdf8;
+      z-index: 1;
+    }
+
+    /* Calaamadaha saacadda */
+    .mark {
+      width: 6px;
+      height: 20px;
+      background: #f8fafc;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform-origin: center 140px;
     }
   </style>
 </head>
 <body>
-  <div class="clock" id="clock"></div>
+  <div class="clock" id="clock">
+    <div class="hand hour" id="hour"></div>
+    <div class="hand minute" id="minute"></div>
+    <div class="hand second" id="second"></div>
+  </div>
 
   <script>
+    // Calaamadaha tirada 12-ka
     const clock = document.getElementById('clock');
-    for (let i = 0; i < 60; i++) {
-      const t = document.createElement('div');
-      t.className = 'tick' + (i % 5 ? ' small' : '');
-      const deg = i * 6;
-      t.style.transform = `translate(-50%, -50%) rotate(${deg}deg)`;
-      clock.appendChild(t);
+    for (let i = 0; i < 12; i++) {
+      const mark = document.createElement('div');
+      mark.classList.add('mark');
+      mark.style.transform = `rotate(${i * 30}deg) translateX(-50%)`;
+      clock.appendChild(mark);
     }
 
-   
-    const hour   = document.createElement('div'); hour.className   = 'hand hour';
-    const minute = document.createElement('div'); minute.className = 'hand minute';
-    const second = document.createElement('div'); second.className = 'hand second';
-    const hub    = document.createElement('div'); hub.className    = 'hub';
-
-    clock.append(hour, minute, second, hub);
-
-    function animate() {
+    function updateClock() {
       const now = new Date();
-      const ms = now.getMilliseconds();
-      const s  = now.getSeconds() + ms / 1000;
-      const m  = now.getMinutes() + s / 60;
-      const h  = (now.getHours() % 12) + m / 60;
+      const seconds = now.getSeconds();
+      const minutes = now.getMinutes();
+      const hours = now.getHours();
 
-      hour.style.transform   = `translate(-50%, 0) rotate(${h*30}deg)`;
-      minute.style.transform = `translate(-50%, 0) rotate(${m*6}deg)`;
-      second.style.transform = `translate(-50%, 0) rotate(${s*6}deg)`;
+      const secondDeg = (seconds / 60) * 360;
+      const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6;
+      const hourDeg = (hours / 12) * 360 + (minutes / 60) * 30;
 
-      requestAnimationFrame(animate);
+      document.getElementById("second").style.transform = `rotate(${secondDeg}deg)`;
+      document.getElementById("minute").style.transform = `rotate(${minuteDeg}deg)`;
+      document.getElementById("hour").style.transform = `rotate(${hourDeg}deg)`;
     }
-    animate();
+
+    setInterval(updateClock, 1000);
+    updateClock();
   </script>
 </body>
 </html>
